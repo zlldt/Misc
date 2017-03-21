@@ -1,0 +1,1009 @@
+CREATE TABLE gongan1( 
+xzqh NUMBER(6),
+id_num VARCHAR2(20) PRIMARY KEY, 
+name VARCHAR2(10) NOT NULL, 
+used_name VARCHAR2(10), 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(8),
+birth_loc VARCHAR(50),
+from_loc VARCHAR(50),
+nation VARCHAR(20),
+household_reg NUMBER(10),
+family_reg NUMBER(10),
+name_household VARCHAR(20),
+id_num_household NUMBER(20),
+relationship VARCHAR(20),
+township VARCHAR(30),
+village VARCHAR(30),
+detail_add VARCHAR(100), 
+household_type VARCHAR(4) CHECK(household_type='常住' or household_type='暂住'),
+serviced_flag VARCHAR(2)
+)
+-----------------------------------
+CREATE TABLE taxuploaded( 
+xzqh NUMBER(10),
+taxpayercode VARCHAR2(20),
+taxinnercode VARCHAR2(20),
+company_name VARCHAR2(100) PRIMARY KEY, 
+company_loc VARCHAR2(100) , 
+org_code VARCHAR(20),
+representative VARCHAR2(10) NOT NULL, 
+id_num_rep VARCHAR2(20), 
+zipcode  NUMBER(10),
+biz_scope VARCHAR(100),
+tax_auth VARCHAR(20),
+gongshang_auth VARCHAR(20),
+gs_reg_type VARCHAR(30),
+gs_reg_num VARCHAR(30),
+gs_reg_date VARCHAR(20),
+tax_reg_count NUMBER(20),
+tax_reg_type VARCHAR(30),
+business_type VARCHAR(30),
+financial_rep VARCHAR(20),
+financial_rep_tel NUMBER(20),
+reg_capital NUMBER(20),
+reg_currency VARCHAR(10),
+tax_reg_date VARCHAR(20)
+)
+-----------------------------------
+CREATE TABLE noinsurance( 
+village VARCHAR(30),
+compsireg VARCHAR2(20),
+company_name VARCHAR2(100),
+personsireg VARCHAR2(20), 
+person_type VARCHAR2(20) , 
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+id_num VARCHAR2(20) PRIMARY KEY, 
+nation VARCHAR(20),
+birth_date VARCHAR(8),
+household_type VARCHAR(4) CHECK(household_type='常住' or household_type='暂住'),
+permant_add VARCHAR(100), 
+household_add VARCHAR(100), 
+person_id VARCHAR(20),
+work_date VARCHAR(8),
+corp_pension_flag VARCHAR(20),
+employee_pension_flag VARCHAR(20),
+resident_pension_flag VARCHAR(20),
+industrialinjury_pension_flag VARCHAR(20),
+maternity_insurance_flag VARCHAR(20),
+unemployment_insurance_flag VARCHAR(20),
+institution_endowment_flag VARCHAR(20),
+ncms_flag VARCHAR(20),
+newagricultural_insurance_flag VARCHAR(20)
+)
+-----------------------------------
+CREATE TABLE siinfo( 
+id_num VARCHAR2(20) PRIMARY KEY, 
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(8),
+id_num VARCHAR2(20), 
+si_num VARCHAR(20),
+nation VARCHAR(20),
+company_name VARCHAR2(100)
+)
+-----------------------------------20160906更新社保信息表，增加新表，增加个人身份，职工医保参保人员类别
+CREATE TABLE siinfo2( 
+sicount VARCHAR2(20) PRIMARY KEY, 
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+id_num VARCHAR2(20),
+si_num VARCHAR(20),
+nation VARCHAR(20),
+birth_date VARCHAR(20),
+company_name VARCHAR2(100),
+identity VARCHAR(30),
+jmybcbzt VARCHAR(20),
+zgybcblb VARCHAR(20),
+jmybcblb VARCHAR(20)
+)
+-----------------------------------
+create table land_tax as select * from taxuploaded where 1=2;
+create table state_tax as select * from land_tax where 1=2;
+-----------------------------------
+CREATE TABLE landlost( 
+sn NUMBER(10) PRIMARY KEY,
+id_num VARCHAR2(20), 
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(10),
+detail_add VARCHAR(100), 
+name_household VARCHAR(20),
+count_household VARCHAR(20),
+contact  VARCHAR(20)
+)
+-----------------------------------失地农民信息
+CREATE TABLE landlost2( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(10),
+id_num VARCHAR2(20), 
+detail_add VARCHAR(100), 
+name_household VARCHAR(20),
+count_household VARCHAR(20)
+)
+-----------------------------------20160928导入社保系统-参保单位信息
+CREATE TABLE sicompinfo( 
+sn NUMBER(10) PRIMARY KEY,
+comp_num VARCHAR2(20),
+name VARCHAR2(30) NOT NULL, 
+insurance_type VARCHAR2(20),
+insurance_date VARCHAR(10),
+status VARCHAR(10),
+type VARCHAR(10),
+location VARCHAR(10),
+comp_type VARCHAR2(20),
+financial_type VARCHAR(10)
+)
+-----------------------------------20161010新市镇用人单位信息
+CREATE TABLE xinshicompinfo( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(30) NOT NULL, 
+org_code VARCHAR(20),
+rep_name VARCHAR(10),
+rep_id_num VARCHAR2(20),
+rep_tel VARCHAR2(20),
+detail_add VARCHAR(100), 
+si_reg_code VARCHAR2(20),
+contact_name VARCHAR(10),
+contact_tel VARCHAR2(20)
+)
+-----------------------------------20161010新市镇 社区年检汇总
+CREATE TABLE xinshinianjian( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(50) NOT NULL, 
+comp_type VARCHAR(20)
+)
+
+-----------------------------------20161010城乡居保比对
+CREATE TABLE landlost12( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(10),
+id_num VARCHAR2(20)
+)
+
+-----------------------------------20161013城乡居保比对
+create table landlost1201 as select * from landlost12 where 1=2;
+
+-----------------------------------20161026 2016新农合
+CREATE TABLE xnhinfo2016( 
+sn NUMBER(10) PRIMARY KEY,
+xzqh NUMBER(6),
+township_id VARCHAR(30),
+township VARCHAR(30),
+village_id VARCHAR(30),
+village VARCHAR(30),
+hzylzh VARCHAR(20),
+cardno VARCHAR(20),
+name_household VARCHAR(20),
+id_num_household VARCHAR2(20),
+name VARCHAR2(20) NOT NULL, 
+id_num VARCHAR2(20),
+birth_date VARCHAR2(10),
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+detail_add VARCHAR(100), 
+contact_tel VARCHAR2(20),
+relationship VARCHAR2(30),
+house_attribute VARCHAR2(20)
+)
+-----------------------------------20161102 复制表2016新农合 改出生日期格式
+create table xnhinfo2016update as select * from xnhinfo2016;
+-----------------------------------20161102 复制公安表格 改出生日期格式
+create table gongan1update as select * from gongan1;
+
+drop table xnhinfo2016update
+
+
+-----------------------------------20161107计生特殊家庭
+CREATE TABLE jishengteshu( 
+cardno VARCHAR2(20) PRIMARY KEY,
+id_num VARCHAR2(20), 
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(10),
+detail_add VARCHAR(100),
+flag VARCHAR2(10)
+)
+
+drop table jishengteshu
+
+-----------------------------------20161108 复制表2016新农合中有问题的数据,改表格式
+create table xnhinfo2016false as select 
+*
+from xnhinfo2016update where sn not in（select b.sn from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18）order by sn;
+-----------------------------------20161108 复制表2016新农合有问题的数据中缺身份证的，
+create table xnhinfo2016nullid as select 
+* 
+from xnhinfo2016false where sn not in(select sn from xnhinfo2016false where id_num is not null and id_num_household is not null) order by sn
+
+-----------------------------------20170208 社保导出2016年12月缴费企业养老保险单位---公积金中心来查询
+CREATE TABLE sicompinfo201612( 
+sn NUMBER(10) PRIMARY KEY,
+comp_num VARCHAR2(20),
+name VARCHAR2(50) NOT NULL, 
+employeenum NUMBER(20),
+comp_type VARCHAR(20)
+)
+
+drop table sicompinfo201612;
+-----------------------------------20170209 计生特殊家庭低保花名册
+CREATE TABLE jishengteshu2016( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(10) NOT NULL, 
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+nation VARCHAR(20),
+birth_date VARCHAR(20),
+id_num VARCHAR2(20),
+detail_add VARCHAR(100)
+)
+-----------------------------------20170209 重残名单
+CREATE TABLE zclist2016( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(10) NOT NULL,
+id_num VARCHAR2(20),
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+cjlb VARCHAR(20),
+cjdj VARCHAR(20),
+fzsj VARCHAR(20),
+detail_add VARCHAR(100),
+contact_tel VARCHAR2(20)
+)
+drop table zclist2016
+-----------------------------------20170209 201611低保名单
+CREATE TABLE dibao2016( 
+sn NUMBER(10) PRIMARY KEY,
+township VARCHAR2(20),
+village VARCHAR2(20),
+jzzh VARCHAR2(20),
+name_household VARCHAR2(10),
+name VARCHAR2(10) NOT NULL,
+relationship VARCHAR2(10),
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+id_num VARCHAR2(20),
+birth_date VARCHAR(20),
+detail_add VARCHAR(100)
+)
+-----------------------------------20170210 计生特殊家庭除去低保重残
+CREATE TABLE jsts201516( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(10) NOT NULL,
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+nation VARCHAR(20),
+birth_date VARCHAR(20),
+id_num VARCHAR2(20),
+detail_add VARCHAR(100)
+)
+
+-----------------------------------20170215 退役士兵信息采集
+CREATE TABLE retiredsoldier( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(20) NOT NULL,
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(20),
+id_num VARCHAR2(50),
+detail_add VARCHAR(100)
+)
+
+-----------------------------------20170217 退役士兵信息采集，退伍年份要加上
+CREATE TABLE retiredsoldierupdate( 
+sn NUMBER(10) PRIMARY KEY,
+retired_year VARCHAR2(20) NOT NULL,
+name VARCHAR2(20) NOT NULL,
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(20),
+id_num VARCHAR2(50),
+detail_add VARCHAR(100)
+)
+
+drop table retiredsoldierupdate
+-----------------------------------20170217 复制退役士兵表格
+create table retiredsoldierupdate as select * from retiredsoldier;
+-----------------------------------20170217 居保比对结果
+CREATE TABLE retiredsoldierjubao( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(20) NOT NULL,
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(20),
+id_num VARCHAR2(50),
+yanglaocb VARCHAR(20),
+yanglaozd VARCHAR(20),
+yanglaolqdy VARCHAR(20)
+)
+-----------------------------------20170217 养老比对结果
+CREATE TABLE retiredsoldieryanglao( 
+sn NUMBER(10) PRIMARY KEY,
+name VARCHAR2(20) NOT NULL,
+id_num VARCHAR2(50),
+shiyestart VARCHAR(20),
+shiyeend VARCHAR(20),
+qiyestart VARCHAR(20),
+qiyeend VARCHAR(20),
+yldyxsstart VARCHAR(20),
+dyxsamount VARCHAR(20)
+)
+-----------------------------------20170219汇总结果
+CREATE TABLE retiredsoldierresult( 
+sn NUMBER(10) PRIMARY KEY,
+retired_year VARCHAR2(20) NOT NULL,
+name VARCHAR2(20) NOT NULL,
+gender VARCHAR(2) CHECK(gender='男' or gender='女'), 
+birth_date VARCHAR(20),
+id_num VARCHAR2(50),
+detail_add VARCHAR(100),
+yanglaoycb VARCHAR2(50),
+yanglaozdjf VARCHAR2(50),
+yanglaowcb VARCHAR2(50),
+yiliaoycb VARCHAR2(50),
+yiliaozdjf VARCHAR2(50),
+yiliaowcb VARCHAR2(50),
+txyanglaolq VARCHAR2(50),
+txyanglaowlq VARCHAR2(50),
+txyllq VARCHAR2(50),
+txylwlq VARCHAR2(50)
+)
+----------------------------------------------------------------------
+
+alter table gongan1
+modify (relationship VARCHAR2(40));
+alter table gongan1
+modify (id_num_household VARCHAR2(20));
+
+select * from gongan1 where township='开发区' for update;--插入数据
+
+select count(*) from gongan1 where birth_loc='湖北省京山县';
+select count(*) from gongan1 where birth_loc like '%京山县';
+select distinct birth_loc from gongan1 where birth_loc not like '%京山县';--是否统一京山县及湖北省京山县
+
+select count(*) from gongan1 where nation='土家族';
+update gongan1 set nation='回族' where nation='回';
+
+select count(*) from gongan1 where nation not like '%族';
+
+update gongan1 set nation =TO_CHAR(nation)||'族' where nation not like '%族';--修改民族加上族
+
+select township,count(*) from gongan1 group by township;--按镇统计人数
+select village,count(*) from gongan1 group by village;--按镇统计人数
+
+select * from gongan1 where village='凤凰堰居委会';
+select village,count(*) from gongan1 where township='新市镇' group by village;--按镇统计人数
+
+select count(*) from gongan1 where relationship='户主';
+
+select * from gongan1 where rownum<50001;
+
+----------------------------分组导出
+select * from (
+select rownum as no,
+xzqh as 行政区划代码,
+id_num as 身份证号码, 
+name as 姓名, 
+used_name as 曾用名, 
+gender as 性别, 
+birth_date as 出生日期,
+birth_loc as 出生地省市县,
+from_loc as 籍贯省市县,
+nation as 民族,
+household_reg as 登记户口薄编号,
+family_reg as 家庭编号,
+name_household as 户主,
+id_num_household as 户主身份证号,
+relationship as 户主关系,
+township as 镇,
+village as 村,
+detail_add as 详细地址, 
+household_type as 户口类别,
+serviced_flag as 服役标志 from gongan1) where no<50001;
+
+
+ where no>550000 and no<600001;
+ where no>500000 and no<550001;
+------------------------------------
+
+select substr(name,1,1) as 姓氏,count(*) from gongan1 group by substr(name,1,1);
+
+------------------------------------
+alter table taxuploaded
+modify(gs_reg_num VARCHAR(30));
+------------------------------------
+select * from land_tax for update
+select * from state_tax for update
+select count(*) from taxuploaded
+select count(*) from land_tax
+select count(*) from state_tax
+select count(*) from land_tax a,state_tax b where a.taxpayercode=b.taxpayercode;
+select count(*) from land_tax a,taxuploaded b where a.taxpayercode=b.taxpayercode;
+select count(*) from state_tax a,taxuploaded b where a.taxpayercode=b.taxpayercode;
+
+select distinct gs_reg_type,count(*) from state_tax group by gs_reg_type;
+
+select * from noinsurance where rownum>48001 for update;--插入数据时,按行数选取总数,插入后面
+
+select count(*) from noinsurance;
+select village,count(*) from noinsurance group by village;
+
+
+select b.township,b.village,count(*) from noinsurance a,gongan1 b where a.village=b.village and a.id_num=b.id_num group by b.township,b.village;--导出入户调查村统计人数
+
+select b.township,count(*) from noinsurance a,gongan1 b where a.village=b.village and a.id_num=b.id_num group by b.township;--导出入户调查村统计人数
+
+select distinct township,village from gongan1 group by township,village;
+
+select a.name, a.id_num, b.township, b.village, b.detail_add from noinsurance a,gongan1 b where a.village=b.village and a.id_num=b.id_num;--查找公安信息与比对结果间镇/村没有匹配的人员信息
+select a.name, a.id_num, b.township, b.village as 公安信息, a.village as 比对结果, b.detail_add from noinsurance a,gongan1 b where a.village<>b.village and a.id_num=b.id_num;--查找公安信息与比对结果间镇/村没有匹配的人员信息
+select * from noinsurance where id_num not in (select a.id_num from noinsurance a,gongan1 b where a.village=b.village and a.id_num=b.id_num)
+
+update gongan1 set village='红旗村委会' where township='永隆镇' and village='王宝居委会';
+
+
+select b.township,b.village,a.name,a.id_num,b.detail_add from noinsurance a,gongan1 b where a.village=b.village and a.id_num=b.id_num and b.township='温泉新区';--导出入户调查名单
+
+select distinct village from gongan1 where township='新市镇';
+
+--------公安信息与社保信息的身份证不一致，导致一部分人有参保但归到未参保人员名单里了。
+
+select count(*) from siinfo where length(id_num)=15;-----58347条15位身份证数据
+select a.name,a.id_num,b.id_num,a.township,a.village from gongan1 a,siinfo b where a.name=b.name and a.birth_date=b.birth_date and a.id_num<>b.id_num;
+
+-----------------------------------------------------------社保与公安信息比对后,身份证不一致,姓名和出生日期一致,认定为同一人的,实际参保但进入未参保名单的人员
+select c.township,c.village,c.detail_add,b.company_name,a.name,a.id_num as 社保身份证信息,b.id_num as 公安身份证信息 from noinsurance a,siinfo b,gongan1 c where a.name=b.name and a.birth_date=b.birth_date and a.id_num<>b.id_num and a.name=c.name and a.birth_date=c.birth_date;
+-----------------------------------------------------------
+
+-----------------------------------------------------------创建错误人员名单
+create table falsedata as select c.township,c.village,c.detail_add,b.company_name,a.name,a.id_num as gonganid,b.id_num as siinfoid from noinsurance a,siinfo b,gongan1 c where a.name=b.name and a.birth_date=b.birth_date and a.id_num<>b.id_num and a.name=c.name and a.birth_date=c.birth_date;
+-----------------------------------------------------------
+select count(*) from falsedata
+-----------------------------------------------------------查询未参保人员及错误人员,分拣出来
+select count(*) from noinsurance a,gongan1 b where b.township='温泉新区' and a.id_num=b.id_num;
+select count(*) from falsedata where township='温泉新区'
+
+-----------------------------------------------------------查询社保信息中75年出生女,65年出生男
+select count(*) from siinfo where substr(birth_date,0,4)='1975' and gender ='女'
+select count(*) from siinfo where substr(birth_date,0,4)='1965' and gender ='男'
+-----------------------------------------------------------查询社保信息中各年份出生人数
+select gender,substr(birth_date,0,4),count(*) from siinfo group by gender,substr(birth_date,0,4)
+-----------------------------------------------------------查询公安信息中各年份出生人数
+select gender,substr(birth_date,0,4),count(*) from gongan1 group by gender,substr(birth_date,0,4)
+select substr(birth_date,0,4),count(*) from gongan1 group by substr(birth_date,0,4)
+select * from siinfo where substr(birth_date,0,4)<'1900'
+
+
+
+-----------------------------------------------------------查询错误信息中同一个人的重复信息 distinct去重，
+select f1.* from falsedata f1,falsedata f2 where f1.gonganid=f2.gonganid and f1.siinfoid<>f2.siinfoid order by f1.gonganid
+select distinct f1.* from falsedata f1,falsedata f2 where f1.gonganid=f2.gonganid and f1.siinfoid<>f2.siinfoid order by f1.gonganid
+-----------------------------------------------------------查询公安信息中同名同生日，一人多身份证号--2249条记录
+select distinct g1.* from gongan1 g1,gongan1 g2 where g1.name=g2.name and g1.birth_date=g2.birth_date and g1.id_num<>g2.id_num order by g1.name
+-----------------------------------------------------------查询公安信息中同名同生日，一人多身份证号--2249条记录，其中一共实际是1042个人
+select count(distinct name) from (select distinct g1.* from gongan1 g1,gongan1 g2 where g1.name=g2.name and g1.birth_date=g2.birth_date and g1.id_num<>g2.id_num)
+
+-----------------------------------------------------------失地农民
+select * from landlost for update
+-----------------------------------------------------------查询失地农民信息中同一个人的重复信息 distinct去重，
+select l1.* from landlost l1,landlost l2 where l1.id_num=l2.id_num and l1.sn<>l2.sn order by l1.id_num for update
+-----------------------------------------------------------查询失地农民信息与社保信息中身份证相同的
+select b.name as 社保信息姓名 ,a.* from landlost a,siinfo b where a.id_num=b.id_num and a.name<>b.name;
+select count(distinct a.id_num) from landlost a,siinfo b where a.id_num=b.id_num and a.name=b.name;
+select count(a.id_num) from landlost a,siinfo b where a.id_num=b.id_num and a.name<>b.name;
+select count(*) from landlost a where not exists (select * from siinfo b where a.id_num=b.id_num);
+
+-----------------------------------------------------------查询失地农民信息与社保信息中身份证相同的--温泉新区
+select b.name as 社保信息姓名 ,a.* from landlost a,siinfo b where a.id_num=b.id_num and a.name<>b.name and a.detail_add='温泉新区';
+
+select b.name as 社保信息姓名 ,a.* from landlost a,siinfo b where a.id_num=b.id_num and a.name=b.name and a.detail_add='温泉新区';
+
+select * from landlost a where a.detail_add='温泉新区' and not exists (select * from siinfo b where a.id_num=b.id_num and a.name=b.name);
+
+-----------------------------------------------------------失地农民信息sn>2577的是20160906导入
+select b.name as 社保信息姓名 ,a.* from landlost a,siinfo b where a.id_num=b.id_num and a.sn>2577;
+
+select b.name as 社保信息姓名,b.company_name as 公司,b.identity as 个人身份,b.jmybcbzt as 居民医保参保状态,b.zgybcblb as 职工医保参保人员类别,b.jmybcblb as 居民医保参保人员类别 ,a.* from landlost2 a,siinfo2 b where a.id_num=b.id_num and b.zgybcblb not in('伤残军人','未成年居民','学生');
+----------20160907 社保无信息人员
+select * from landlost2 where id_num not in (select a.id_num from landlost2 a,siinfo2 b where a.id_num=b.id_num)
+select * from landlost2 where id_num not in (select a.id_num from landlost2 a,siinfo2 b where a.id_num=b.id_num and b.zgybcblb not in('伤残军人','未成年居民','学生'))
+
+select b.name as 社保信息姓名,b.company_name as 单位 ,a.* from landlost3 a,siinfo b where a.id_num=b.id_num;
+
+----------20160914全民参保已进系统人员名单
+select * from qmcbimported for update
+
+select distinct a.* from noinsurance a,qmcbimported b,gongan1 c where (a.id_num not in (select a.id_num from noinsurance a, qmcbimported b where a.id_num=b.id_num) )and a.id_num=c.id_num and c.township='石龙镇'
+
+create table temp1 as select a.* from noinsurance a, gongan1 b where a.id_num=b.id_num and b.township='石龙镇';
+
+select a.* from qmcbimported a where a.id_num not in (select a.id_num from qmcbimported a,temp1 b where a.id_num=b.id_num)
+
+select * from temp1
+drop table temp1
+select a.id_num from qmcbimported a,temp1 b where a.id_num=b.id_num
+
+----------20160928导入新市镇单位信息
+
+select count(*) from sicompinfo
+select count(*) from xinshicompinfo
+select * from xinshicompinfo for update
+select * from xinshinianjian for update
+
+
+select distinct a.* from xinshicompinfo a,sicompinfo b where a.name=b.name;----------20160928新市镇单位信息与社保信息一致的
+select * from xinshicompinfo where name not in (select distinct a.name from xinshicompinfo a,sicompinfo b where a.name=b.name)
+
+select distinct a.* from xinshinianjian a,sicompinfo b where a.name=b.name;----------20160928新市镇年检单位信息与社保信息一致的
+select * from xinshinianjian where name not in (select distinct a.name from xinshinianjian a,sicompinfo b where a.name=b.name)
+
+----------20161020复制数据库
+select * from v$controlfile
+select * from V$PARAMETER where name like '%spfile%'
+select * from V$DATAFILE
+select * from V$LOGFILE
+----------20161026 新农合2016导入
+select * from xnhinfo2016 for update
+
+select * from gongan1 where substr(id_num,18,1)='X'------查询身份证18位的X
+
+select a.name as 公安姓名,b.name as 农合姓名,a.id_num from gongan1 a,xnhinfo2016 b where a.id_num=b.id_num and a.name<>b.name;
+
+
+select a.name,a.birth_date,a.id_num as 公安身份证,b.id_num as 农合身份证 from gongan1 a,xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num<>b.id_num and substr(b.id_num,18,1)='X';
+
+----------20161026 新农合2016 身份证尾号x改为X
+select a.name,a.birth_date,a.id_num as 公安身份证,b.id_num as 农合身份证 from gongan1 a,xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num<>b.id_num and substr(a.id_num,1,17)=substr(b.id_num,1,17)and substr(b.id_num,18,1)='x';
+update xnhinfo2016 set id_num=substr(id_num,1,length(id_num)-1)||'X' where substr(id_num,18,1)='x';
+
+----------20161026 新农合2016 农合身份证18位，中间不是生日的
+select * from xnhinfo2016 where birth_date<>substr(id_num,7,8) and length(id_num)=18
+
+----------20161026 新农合2016 农合身份证空的
+select * from xnhinfo2016 where id_num is null;
+
+select a.name,a.id_num from gongan1 a, xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and b.id_num is null;
+update xnhinfo2016 a set id_num=(select b.id_num from gongan1 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num is null) where exists( select b.id_num from gongan1 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num is null)
+update (select a.id_num aname,b.id_num bname from xnhinfo2016 a inner join gongan1 b on a.name=b.name and a.birth_date=b.birth_date and a.id_num is null) set aname=bname;
+
+
+update xnhinfo2016 a set id_num=(select b.id_num from gongan1 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num is null) where a.name=( select b.name from gongan1 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num is null)
+
+----------20161031 生日为空的补上
+select * from xnhinfo2016 where birth_date='        ' and length(id_num)=18;----birth_date<>substr(id_num,7,8)
+update xnhinfo2016 set birth_date=substr(id_num,7,8) where birth_date='        ' and length(id_num)=18;
+
+----------名字 生日相同 身份证对不上
+select a.name,a.id_num,b.id_num from gongan1 a,xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num<>b.id_num;
+
+----------生日明显不对的
+select * from xnhinfo2016 where length(id_num)=18 and to_number(substr(id_num,13,2))>31 and substr(id_num,1,6)<>'422432';
+----------姓名，出生日期，身份证号都对得上的，
+select count(b.sn) from gongan1 a,xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num;
+select b.* from gongan1 a,xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num order by b.sn;
+----------姓名，出生日期，身份证号对不上的，
+select count(sn) from xnhinfo2016 where sn not in (select b.sn from gongan1 a,xnhinfo2016 b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num);
+select count(*) from xnhinfo2016
+
+----------20161102 农合跟社保重复人员
+select a.name, a.id_num,a.birth_date,b.birth_date from siinfo2 a, xnhinfo2016 b where a.name=b.name and a.id_num=b.id_num; and a.birth_date=b.birth_date;
+select count(*) from siinfo2 a, xnhinfo2016 b where a.name=b.name and a.id_num=b.id_num
+
+select * from siinfo2 where id_num not in (select id_num from siinfo)
+
+select count(*) from xnhinfo2016 where length(birth_date)=8;
+----------20161102 复制农合表格，修改出生日期格式
+select substr(birth_date,1,4)||'/'||substr(birth_date,5,2)||'/'||substr(birth_date,7,2) from xnhinfo2016update where length(birth_date)=8;
+update xnhinfo2016update set birth_date=(substr(birth_date,1,4)||'/'||substr(birth_date,5,2)||'/'||substr(birth_date,7,2)) where length(birth_date)=8;
+----------20161102 复制公安表格，修改出生日期格式
+update gongan1update set birth_date=(substr(birth_date,1,4)||'/'||substr(birth_date,5,2)||'/'||substr(birth_date,7,2)) where length(birth_date)=8;
+
+select count(*) from xnhinfo2016update
+
+select b.* from gongan1update a,xnhinfo2016update b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num order by b.sn;
+
+
+----------------------------20161104 修改输出条件，把身份证与公安数据不符的（可能有新生儿在内）、户主身份证为空的，都先剔除掉，
+select b.* from gongan1update a,xnhinfo2016update b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num and length(b.id_num_household)=18 order by b.sn;
+
+----------------------------20161104 有问题的数据
+select * from xnhinfo2016update where sn not in  (select b.sn from gongan1update a,xnhinfo2016update b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num and length(b.id_num_household)=18 ) order by sn
+select count(*) from xnhinfo2016update where sn not in  (select b.sn from gongan1update a,xnhinfo2016update b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num and length(b.id_num_household)=18)
+
+----------------------------20161104 分组输出
+
+select b.* from gongan1update a,xnhinfo2016update b 
+where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num and length(b.id_num_household)=18 and b.sn<25000 order by b.sn;
+
+----------------------------20161104 农合数据有误，重新导入
+--drop table xnhinfo2016
+select * from xnhinfo2016 for update
+----------------------------20161104新农合2016 身份证尾号x改为X
+update xnhinfo2016 set id_num=substr(id_num,1,length(id_num)-1)||'X' where substr(id_num,18,1)='x';
+
+----------------------------20161104生日为空的补上 还有6527条生日有问题的，
+select * from xnhinfo2016 where birth_date='    -  -  '
+update xnhinfo2016 set birth_date=substr(id_num,7,8) where birth_date='    -  -  ' and length(id_num)=18;
+----------------------------20161104 复制农合表格，修改出生日期格式
+select substr(birth_date,1,4)||'/'||substr(birth_date,6,2)||'/'||substr(birth_date,9,2) from xnhinfo2016update where length(birth_date)=8;
+update xnhinfo2016update set birth_date=(substr(birth_date,1,4)||'/'||substr(birth_date,6,2)||'/'||substr(birth_date,9,2));
+
+----------------------------20161104 分组输出
+select b.* from gongan1update a,xnhinfo2016update b 
+where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num and length(b.id_num_household)=18 and b.sn<20001 order by b.sn;
+
+
+-----------------------------------------------------------20161107农合身份证尾号为*或者x的，全改为X
+update xnhinfo2016update set id_num=substr(id_num,1,17)||'X' where substr(id_num,18,1)='*'
+update xnhinfo2016update set id_num_household=substr(id_num_household,1,17)||'X' where substr(id_num_household,18,1)='*'
+update xnhinfo2016update set id_num_household=substr(id_num_household,1,17)||'X' where substr(id_num_household,18,1)='x'
+
+
+-----------------------------------------------------------导出农合与公安信息一致的记录--371140条 农合共449714条
+select b.* from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18 and 
+b.sn>360000 and b.sn<380001
+ order by b.sn;
+select count(b.sn) from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18;
+select b.township_id,count(b.sn) from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18 group by b.township_id;
+
+where b.sn<20001;
+where b.sn>20000 and b.sn<40001;
+where b.sn>40000 and b.sn<60001;
+where b.sn>60000 and b.sn<80001;
+where b.sn>80000 and b.sn<100001;
+where b.sn>100000 and b.sn<120001;
+where b.sn>120000 and b.sn<140001;
+where b.sn>140000 and b.sn<160001;
+where b.sn>160000 and b.sn<180001;
+where b.sn>180000 and b.sn<200001;
+where b.sn>200000 and b.sn<220001;
+where b.sn>220000 and b.sn<240001;
+where b.sn>240000 and b.sn<260001;
+where b.sn>260000 and b.sn<280001;
+where b.sn>280000 and b.sn<300001;
+where b.sn>300000 and b.sn<320001;
+where b.sn>320000 and b.sn<340001;
+where b.sn>340000 and b.sn<360001;
+where b.sn>360000 and b.sn<380001;
+
+
+-----------------------------------------------------------导出农合与公安信息不一致的记录--78574条
+select * from xnhinfo2016update where sn not in（select b.sn from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18）order by sn
+
+select count(*) from xnhinfo2016update where sn not in（select b.sn from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18)
+
+select * from(
+select rownum as no,a.*
+from xnhinfo2016update a where sn not in（select b.sn from gongan1update a,xnhinfo2016update b where a.id_num=b.id_num and a.name=b.name and a.birth_date=b.birth_date and length(b.id_num_household)=18）order by sn) where no<20001;
+
+
+-----------------------------------------------------------农合 公安 姓名 生日一致 农合身份证为空的 5149条
+select count(*) from xnhinfo2016update where detail_add is null
+
+
+-----------------------------------------------------------20161107计生特殊家庭
+select count(*) from jishengteshu where flag='低保'
+
+delete from jishengteshu where flag='低保'
+select * from jishengteshu for update
+
+select f1.* from jishengteshu f1,jishengteshu f2 where f1.id_num=f2.id_num and f1.cardno<>f2.cardno order by f1.cardno
+
+select b.cardno,b.id_num,a.name,a.detail_add as 农合地址,b.detail_add as 地址,a.relationship from xnhinfo2016update a,jishengteshu b where a.id_num=b.id_num order by b.cardno;
+
+select * from siinfo2
+
+select b.cardno,b.id_num,a.name,b.detail_add as 地址,a.jmybcbzt as 居民医保参保状态,a.zgybcblb as 职工医保参保状态,a.jmybcblb as 居民医保参保类别 from siinfo2 a,jishengteshu b where a.id_num=b.id_num order by b.cardno;
+
+
+-----------------------------------------------------------导出农合与公安信息不一致的记录--78574条，单独处理
+select * from xnhinfo2016false where id_num is null    
+select count(*) from xnhinfo2016false where id_num is null                           ------17370条身份证为空
+select count(*) from xnhinfo2016false where id_num_household is null                 ------6734条户主身份证为空
+--select count(*) from xnhinfo2016false where detail_add is null                       ------12555条地址为空  已处理
+select count(*) from xnhinfo2016false where length(id_num)<>18                       ------6699条身份证不是18位
+
+update xnhinfo2016false set detail_add='京山县'||township||village where detail_add is null
+
+----------名字 生日相同 身份证对不上
+select a.name,a.id_num,b.id_num from gongan1 a,xnhinfo2016false b where a.name=b.name and a.birth_date=substr(b.birth_date,1,4)||substr(b.birth_date,6,2)||substr(b.birth_date,9,2) and a.id_num<>b.id_num;
+
+----------生日明显不对的
+select *
+  from xnhinfo2016false
+ where length(id_num) = 18
+   and to_number(substr(id_num, 13, 2)) > 31
+   and substr(id_num, 1, 6) <> '422432';
+----------姓名，出生日期，身份证号都对得上的，
+select count(b.sn) from gongan1 a,xnhinfo2016false b where a.name=b.name and a.birth_date=substr(birth_date,1,4)||'/'||substr(birth_date,6,2)||'/'||substr(birth_date,9,2) and a.id_num=b.id_num;
+select b.* from gongan1 a,xnhinfo2016false b where a.name=b.name and a.birth_date=b.birth_date and a.id_num=b.id_num order by b.sn;
+
+select count(*) from xnhinfo2016false where birth_date='    /  /  '
+update xnhinfo2016false set birth_date='9999/12/31' where birth_date='    /  /  '
+
+select * from xnhinfo2016false where id_num is not null and id_num_household is not null----58803条，身份证号都有
+select * from xnhinfo2016false where sn not in(select sn from xnhinfo2016false where id_num is not null and id_num_household is not null) order by sn
+
+select * from xnhinfo2016nullid where relationship is not null
+
+update xnhinfo2016nullid set id_num='无身份证号'||sn where id_num is null
+update xnhinfo2016nullid set id_num_household='无身份证号'||sn where id_num_household is null
+
+select f1.* from xnhinfo2016false f1,xnhinfo2016false f2 where f1.id_num=f2.id_num and f1.sn<>f2.sn order by f1.sn
+select f1.* from xnhinfo2016 f1,xnhinfo2016 f2 where f1.id_num=f2.id_num and f1.sn<>f2.sn order by f1.sn
+
+select name,comp_num,comp_type,
+max(decode(insurance_type,'企业基本养老保险',insurance_type,'')) as 企业基本养老保险,
+max(decode(insurance_type,'机关事业养老保险',insurance_type,'')) as 机关事业养老保险,
+max(decode(insurance_type,'基本医疗保险',insurance_type,'')) as 基本医疗保险,
+max(decode(insurance_type,'大额医疗保险',insurance_type,'')) as 大额医疗保险,
+max(decode(insurance_type,'生育保险',insurance_type,'')) as 生育保险,
+max(decode(insurance_type,'工伤保险',insurance_type,'')) as 工伤保险
+ from sicompinfo group by name,comp_num,comp_type;
+ 
+ 
+select f1.* from siinfo f1,siinfo f2 where f1.id_num=f2.id_num and f1.si_num<>f2.si_num order by f1.id_num
+
+
+-----------------------------------------------------------20170208
+select * from sicompinfo201612 for update
+select count(*) from sicompinfo201612
+
+select a.name,b.contact_name,b.contact_tel from sicompinfo201612 a,xinshicompinfo b where a.name=b.name;
+-----------------------------------------------------------税务联系方式
+select a.*,b.financial_rep,b.financial_rep_tel from sicompinfo201612 a,taxuploaded b where a.name=b.company_name order by a.sn;
+-----------------------------------------------------------地税联系方式
+select a.*,b.financial_rep,b.financial_rep_tel from sicompinfo201612 a,land_tax b where
+( a.name=b.company_name 
+and a.sn not in (
+select a.sn from sicompinfo201612 a,taxuploaded b where a.name=b.company_name
+))
+order by a.sn;
+-----------------------------------------------------------新市镇公司信息
+select a.*,b.contact_name,b.contact_tel from sicompinfo201612 a,xinshicompinfo b where 
+(a.name=b.name
+and a.sn not in (
+select a.sn from sicompinfo201612 a,taxuploaded b where a.name=b.company_name
+)
+and a.sn not in (
+select a.sn from sicompinfo201612 a,land_tax b where a.name=b.company_name
+)
+)
+ order by a.sn;
+
+
+
+
+-----------------------------------------------------------20170209医保补贴分类-计生特殊家庭低保花名册
+select * from jishengteshu2016 for update
+
+select * from zclist2016 for update
+-----------------------------------------------------------20170209查询
+select a.*,b.id_num as bidnum from jishengteshu2016 a,zclist2016 b where substr(a.id_num,1,18)=substr(b.id_num,1,18) order by a.sn;
+-----------------------------------------------------------20170209卫计局查询
+select * from dibao2016 for update
+select a.*,b.id_num as bidnum from jishengteshu2016 a,dibao2016 b where a.id_num=b.id_num order by a.sn;
+
+select a.*,b.id_num,c.id_num from jishengteshu2016 a,zclist2016 b,dibao2016 c where substr(a.id_num,1,18)=substr(b.id_num,1,18) and a.id_num=c.id_num order by a.sn;
+
+select a.*,b.id_num as bidnum from dibao2016 a,zclist2016 b where substr(a.id_num,1,18)=substr(b.id_num,1,18) order by a.sn;
+
+-----------------------------------------------------------20170210卫计局查询
+select * from jsts201516 for update
+
+select a.*,b.jmybcbzt,b.zgybcblb from jsts201516 a,siinfo2 b where a.id_num=b.id_num order by a.sn;
+select a.* from jsts201516 a,xnhinfo2016update b where a.id_num=b.id_num order by a.sn;
+
+select a.* from jsts201516 a,siinfo2 b,xnhinfo2016update c where a.id_num=b.id_num and a.id_num=c.id_num order by a.sn;
+
+-----------------------------------------------------------20170215清除身份证为空和死亡人员 共2537人
+select * from retiredsoldier where 
+id_num is not null 
+and
+length(id_num)=18
+and 
+id_num<>'查无' 
+and 
+id_num<>'无' 
+and 
+sn not in (
+select sn from retiredsoldier where detail_add like '%死亡%'
+)
+and 
+sn not in (
+select sn from retiredsoldier where id_num like '%死亡%'
+)
+order by sn; 
+
+-----------------------------------------------------------
+select * from retiredsoldier where 
+sn not in(
+select sn from retiredsoldier where 
+id_num is not null 
+and
+length(id_num)=18
+and 
+id_num<>'查无' 
+and 
+id_num<>'无' 
+and 
+sn not in (
+select sn from retiredsoldier where detail_add like '%死亡%'
+)
+and 
+sn not in (
+select sn from retiredsoldier where id_num like '%死亡%'
+)
+)
+order by sn;
+-----------------------------------------------------------20170215 查询身份证号非18位的，7人
+select * from retiredsoldier where 
+id_num is not null 
+and
+length(id_num)<>18
+and 
+id_num<>'查无' 
+and 
+id_num<>'无' 
+and 
+sn not in (
+select sn from retiredsoldier where detail_add like '%死亡%'
+)
+and 
+sn not in (
+select sn from retiredsoldier where id_num like '%死亡%'
+)
+order by sn;
+
+-----------------------------------------------------------20170217去重复
+select a1.* from retiredsoldierupdate a1,retiredsoldierupdate a2 where 
+a1.id_num is not null and a1.id_num<>'查无' and a1.id_num<>'无'
+and 
+a2.id_num is not null and a2.id_num<>'查无' and a2.id_num<>'无'
+and a1.id_num=a2.id_num and a1.sn<>a2.sn order by a1.sn;
+
+select * from retiredsoldierupdate order by sn;
+-----------------------------------------------------------20170217新表插入退伍时间
+insert into retiredsoldierupdate(sn,retired_year,name,gender, birth_date,id_num,detail_add)
+select sn,'0000',name,gender, birth_date,id_num,detail_add from retiredsoldier;
+
+select * from retiredsoldierupdate order by sn;
+
+select count(*) from retiredsoldierupdate
+-----------------------------------------------------------20170215清除重复、身份证为空和死亡人员 共2469人
+select * from retiredsoldierupdate where 
+id_num is not null 
+and
+length(id_num)=18
+and 
+id_num<>'查无' 
+and 
+id_num<>'无' 
+and 
+sn not in (
+select sn from retiredsoldier where detail_add like '%死亡%'
+)
+and 
+sn not in (
+select sn from retiredsoldier where id_num like '%死亡%'
+)
+order by sn;
+
+-----------------------------------------------------------20170217导入居保比对结果 清除重复，
+select * from retiredsoldierjubao for update
+
+select * from retiredsoldierjubao order by sn;
+
+delete from retiredsoldierjubao where yanglaocb is null and yanglaozd is null and yanglaolqdy is null;
+
+select * from retiredsoldierjubao a,retiredsoldierjubao b where a.id_num=b.id_num and a.sn<>b.sn;
+
+
+-----------------------------------------------------------20170217导入养老比对结果 清除重复，
+select count(*) from retiredsoldieryanglao for update
+
+select * from retiredsoldieryanglao order by sn;
+
+select * from retiredsoldieryanglao where shiyestart is not null and qiyestart is not null;
+
+delete from retiredsoldieryanglao where shiyestart is null and shiyeend is null and qiyestart is null and qiyeend is null and yldyxsstart is null and dyxsamount is null
+
+select a.* from retiredsoldieryanglao a,retiredsoldieryanglao b where a.id_num=b.id_num and a.sn<>b.sn;
+
+
+-----------------------------------------------------------20170218养老比对居保结果 
+select a.id_num,a.name,b.name from retiredsoldierjubao a,retiredsoldieryanglao b where a.id_num=b.id_num;
+
+
+------------------------------------------------------------20170218退伍军人信息，不在养老和居保名单中的
+select * from retiredsoldierupdate where 
+id_num is not null 
+and
+length(id_num)=18
+and 
+id_num<>'查无' 
+and 
+id_num<>'无' 
+and 
+sn not in (
+select sn from retiredsoldier where detail_add like '%死亡%'
+)
+and 
+sn not in (
+select sn from retiredsoldier where id_num like '%死亡%'
+)
+and
+id_num not in(
+select id_num from retiredsoldierjubao)
+and
+id_num not in(
+select id_num from retiredsoldieryanglao)
+order by sn;
+------------------------------------------------------------20170218退伍军人信息，结果汇总到retiredsoldierresult
+------------------------------------------------------------20170218retiredsoldierupdate复制到retiredsoldierresult
+insert into retiredsoldierresult(sn,retired_year,name,gender,birth_date,id_num,detail_add)
+select sn,retired_year,name,gender,birth_date,id_num,detail_add
+from retiredsoldierupdate
+------------------------------------------------------------20170218养老信息复制到retiredsoldierresult
+update retiredsoldierresult set yanglaoycb='事'||(select shiyestart from retiredsoldieryanglao where retiredsoldierresult.id_num=retiredsoldieryanglao.id_num)||'-'||
+(select shiyeend from retiredsoldieryanglao where retiredsoldierresult.id_num=retiredsoldieryanglao.id_num)
+where exists(select 1 from retiredsoldieryanglao where  retiredsoldierresult.id_num=retiredsoldieryanglao.id_num and retiredsoldieryanglao.shiyestart is not null)
+
+update retiredsoldierresult set yanglaoycb='企'||(select qiyestart from retiredsoldieryanglao where retiredsoldierresult.id_num=retiredsoldieryanglao.id_num)||'-'||
+(select qiyeend from retiredsoldieryanglao where retiredsoldierresult.id_num=retiredsoldieryanglao.id_num)
+where exists(select 1 from retiredsoldieryanglao where  retiredsoldierresult.id_num=retiredsoldieryanglao.id_num and retiredsoldieryanglao.qiyestart is not null)
+
+update retiredsoldierresult set txyanglaolq=(select yldyxsstart from retiredsoldieryanglao where retiredsoldierresult.id_num=retiredsoldieryanglao.id_num)||' '||
+(select dyxsamount from retiredsoldieryanglao where retiredsoldierresult.id_num=retiredsoldieryanglao.id_num)
+where exists(select 1 from retiredsoldieryanglao where  retiredsoldierresult.id_num=retiredsoldieryanglao.id_num and retiredsoldieryanglao.yldyxsstart is not null)
+
+select * from retiredsoldierresult where yanglaoycb is not null;
+------------------------------------------------------------20170218居保信息复制到retiredsoldierresult，不改动养老结果，
+update retiredsoldierresult set yanglaoycb=yanglaoycb||(select yanglaocb from retiredsoldierjubao where retiredsoldierresult.id_num=retiredsoldierjubao.id_num)
+where exists(select 1 from retiredsoldierjubao where retiredsoldierresult.id_num=retiredsoldierjubao.id_num)
+
+update retiredsoldierresult set yanglaozdjf=(select yanglaozd from retiredsoldierjubao where retiredsoldierresult.id_num=retiredsoldierjubao.id_num)
+where exists(select 1 from retiredsoldierjubao where retiredsoldierresult.id_num=retiredsoldierjubao.id_num)
+
+update retiredsoldierresult set txyanglaolq=(select yanglaolqdy from retiredsoldierjubao where retiredsoldierresult.id_num=retiredsoldierjubao.id_num)
+where exists(select 1 from retiredsoldierjubao where retiredsoldierresult.id_num=retiredsoldierjubao.id_num and retiredsoldierjubao.yanglaolqdy is not null)
+
+select * from retiredsoldierresult where yanglaoycb is null;
+select * from retiredsoldierresult where 
+id_num is not null 
+and
+length(id_num)=18
+and 
+id_num<>'查无' 
+and 
+id_num<>'无' 
+and 
+sn not in (
+select sn from retiredsoldier where detail_add like '%死亡%'
+)
+and 
+sn not in (
+select sn from retiredsoldier where id_num like '%死亡%'
+)
+and
+yanglaoycb is null
+order by sn;
+
+select * from retiredsoldierjubao order by sn;
+select * from retiredsoldieryanglao order by sn;
+select * from retiredsoldierupdate order by sn;
+select * from retiredsoldierresult order by sn;
+
+
+SET SERVEROUTPUT ON
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('This is a anonymous block');
+END;
+/
+
+SET SERVEROUTPUT ON
+ BEGIN
+DECLARE
+    v_sname VARCHAR2(10);
+   
+            SELECT  name into v_sname FROM tangwen.gongan1 where id_num='420821198309032319';
+            DBMS_OUTPUT.PUT_LINE('name:'||v_sname);
+END;
+/
