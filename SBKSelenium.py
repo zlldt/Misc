@@ -79,7 +79,7 @@ for r,tr in enumerate(table_tr_list,1):
     #table_list.append(row_list)
 
 #翻页，
-while browser.find_element_by_xpath('/html/body/form/table[4]/tbody/tr/td[2]/a[3]'):
+while True:
     browser.find_element_by_xpath('/html/body/form/table[4]/tbody/tr/td[2]/a[3]').click()
     time.sleep(5)
     #复制保存表格内容部分
