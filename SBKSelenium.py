@@ -1,4 +1,4 @@
-#Author: tangwen
+#Author: zlldt
 #Date: 2018/3/22
 import os
 import time
@@ -66,6 +66,7 @@ table_tr_list = browser.find_element_by_xpath("//*[@id='主表']/table[1]/tbody"
 # print(table_tr_list)
 
 #每行输出到row_list中,将所有的row_list输入到table_list中
+linenumber = 1
 for r,tr in enumerate(table_tr_list,1):
     #将表的每一行的每一列内容存在table_td_list中
     table_td_list = tr.find_elements_by_tag_name('td')
@@ -73,8 +74,31 @@ for r,tr in enumerate(table_tr_list,1):
     for c,td in enumerate(table_td_list):
         #row_list.append(td.text)
         # print(td.text)
-        sheet.write(r, c, td.text)
+        sheet.write(linenumber, c, td.text)
+    linenumber += 1
     #table_list.append(row_list)
+
+#翻页，
+while browser.find_element_by_xpath('/html/body/form/table[4]/tbody/tr/td[2]/a[3]'):
+    browser.find_element_by_xpath('/html/body/form/table[4]/tbody/tr/td[2]/a[3]').click()
+    time.sleep(5)
+    #复制保存表格内容部分
+    table_tr_list = browser.find_element_by_xpath("//*[@id='主表']/table[1]/tbody").find_elements_by_tag_name('tr')
+
+    # 每行输出到row_list中,将所有的row_list输入到table_list中
+    for r, tr in enumerate(table_tr_list, 1):
+        # 将表的每一行的每一列内容存在table_td_list中
+        table_td_list = tr.find_elements_by_tag_name('td')
+        # 将行列的内容加入到table_list中
+        for c, td in enumerate(table_td_list):
+            # row_list.append(td.text)
+            # print(td.text)
+            sheet.write(linenumber, c, td.text)
+        linenumber += 1
+    #如果结果条数小于99，说明没有下一页，结束翻页
+    if len(table_tr_list)<99:
+        break
+
 wbk.save('d:\\20180322.xls')
 print('Done')
 
