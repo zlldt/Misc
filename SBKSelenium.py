@@ -14,11 +14,12 @@ browser.maximize_window()
 browser.get("http://10.128.8.73:7001/hbcard/login.jsp")
 
 #输入用户姓名、密码
-browser.find_element_by_xpath('/html/body/form/table/tbody/tr/td/center/table/tbody/tr[2]/td[2]/table/tbody/tr[1]/td[2]/input').send_keys(username)
-browser.find_element_by_xpath('/html/body/form/table/tbody/tr/td/center/table/tbody/tr[2]/td[2]/table/tbody/tr[2]/td[2]/input').send_keys(password)
+#20180425 社保卡系统更新，修改登录方式
+browser.find_element_by_name('XM').send_keys(username)
+browser.find_element_by_name('MM').send_keys(password)
 
 #模拟点击事件
-browser.find_element_by_xpath('/html/body/form/table/tbody/tr/td/center/table/tbody/tr[2]/td[2]/p/input[1]').click()
+browser.find_element_by_xpath('//*[@id="loginbtn"]').click()
 
 wbk = xlwt.Workbook(encoding='utf-8', style_compression=0)
 
@@ -29,7 +30,8 @@ for batchno in batchnos:
     #打开综合查询
     browser.get('http://10.128.8.73:7001/hbcard/tjbb/sbkcx.jsp')
     #批次号输入
-    browser.find_element_by_xpath('/html/body/form/table[3]/tbody/tr[1]/td[8]/input').send_keys(batchno)
+    #20180425 社保卡系统更新，修改批次号输入
+    browser.find_element_by_name('BATCHNO').send_keys(batchno)
 
     #点击开始查找
     browser.find_element_by_xpath('/html/body/form/table[2]/tbody/tr/td[2]/input').click()
@@ -57,7 +59,6 @@ for batchno in batchnos:
             # print(td.text)
             sheet.write(linenumber, c, td.text)
         linenumber += 1
-        #table_list.append(row_list)
 
     #翻页，下一页：'/html/body/form/table[4]/tbody/tr/td[2]/a[3]'
     while True:
