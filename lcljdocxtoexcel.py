@@ -75,6 +75,7 @@ class Solution:
             excelfilename = (filename.strip('docx'))+'xls'
         #过滤文本
         declude = ['', '长期医嘱：', '临时医嘱：', '出院医嘱：', '长期医嘱:', '临时医嘱:', '出院医嘱:']
+        misorder = ['主','要','诊','疗','工','作','重','点','医','嘱']        
         #总行号
         linenumber = 0
         wbk = xlwt.Workbook(encoding='utf-8', style_compression=0)
@@ -109,6 +110,8 @@ class Solution:
                             #文本内容分行
                             textindex = cellelement.text.splitlines()
                             for line in textindex:
+                                if line in misorder:
+                                    return 1                                
                                 #去掉文本中的'**医嘱：'以及空行
                                 if line not in declude:
                                     #去掉文本中的‘□’
